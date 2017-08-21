@@ -33,7 +33,11 @@ body{
 padding:0;
 margin:0;
 font-family: 'Open Sans', sans-serif;
-background: url(../images/1.png) repeat;
+background: url(../images/event.png);
+background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;
 }
 
 h1,h2,h3,h4,h5,h6{
@@ -125,13 +129,13 @@ p.footer a:hover{
 .resp-tab-active{
     color: #B3E03F;
 }
-.resp-tabs-container {
+.resp-tabs-container1 {
 	padding: 0px;
 	clear: left;
     padding: 2em 2.5em;
-    background: #fff;
     border: 1px solid #e7ebee;	
 }
+
 h2.resp-accordion {
 	cursor: pointer;
 	padding: 5px;
@@ -181,11 +185,11 @@ li.resp-tab-item.resp-tab-active span label {
 .tab-for input[type="text"] {
     width:96%;
     padding: 8px;
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 600;
     border: 1px solid #e7ebee;
     outline: none;
-    color: #ccc;
+    color: #FFCC66;
     border-radius: 5px;
     margin-bottom: 20px;
     transition:0.5s all;
@@ -196,7 +200,7 @@ li.resp-tab-item.resp-tab-active span label {
 }
 .tab-for h5 ,.tab-form-left h5,.tab-form-right h5{
     color: #435964;
-    font-size: 13px;
+    font-size: 15px;
     text-transform: uppercase;
     margin: 0 0 8px 0;
     font-weight: 600;
@@ -256,11 +260,11 @@ input.text_box {
 .tab-form-right input[type="text"] {
     width:92%;
     padding: 8px;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 600;
     border: 1px solid #e7ebee;
     outline: none;
-    color: #ccc;
+    color: #FFCC66;
     border-radius: 5px;
     margin-bottom: 30px;
     transition:0.5s all;
@@ -723,7 +727,7 @@ transition:0.5s all;
 		width: 92%;
 		margin: 30px auto 0 auto;
 	}
-	.resp-tabs-container {
+	.resp-tabs-container1{
 		padding: 1em 1em;
 	}
 	.tab-form-right input[type="text"] {
