@@ -50,7 +50,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<form>
 												<div class="tab-for">				
 													<h5>EMAIL ADDRESS</h5>
-														<input id="email" type="text" value="em">
+														<input id="email" type="text" value="">
 													<h5>CONFIRM EMAIL ADDRESS</h5>													
 														<input id="confirmedEmail" type="text" value="">
 												</div>			
@@ -140,6 +140,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 													      // Inform the user if there was an error
 													      var errorElement = document.getElementById('card-errors');
 													      errorElement.textContent = result.error.message;
+													      console.log("token is failed to created")
 													    } else {
 													      // Send the token to your server
 													      console.log("HEY6")
@@ -154,7 +155,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														console.log(email)
 														var ticketNumber = $("#ticketNumber").val()
 														//alert(ticketNumber)
-														//$.post("https://192.168.16.108:5432/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: 1, email: email}, function(result, err){
+														//$.post("http://192.168.16.108:5432/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: 1, email: email}, function(result, err){
 														$.post("https://haoyizu.herokuapp.com/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: 1, email: email}, function(result, err){
 
 															console.log(result)
@@ -168,6 +169,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 													function validateEmail(){
 														var email = $("#email").val()
 														var confirmedEmail = $("#confirmedEmail").val()
+														if (email == ''){
+															alert("Please fill in the email address first")
+														}
 														if (email != confirmedEmail){
 															alert("make sure the email addresses are same")
 														}
