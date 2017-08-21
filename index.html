@@ -134,7 +134,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 													form.addEventListener('submit', function(event) {
 													  event.preventDefault();
 													  console.log("HEY5")
-
+													  validateEmail()
 													  stripe.createToken(card).then(function(result) {
 													    if (result.error) {
 													      // Inform the user if there was an error
@@ -152,13 +152,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														console.log("im in!");
 														var email = $("#email").val()
 														console.log(email)
-														$.post("https://haoyizu.herokuapp.com/ticket/purchase", {token: token.id, id: "web", amount: 69 * 1.13, wechat: "web", ticketNumber: 1, email: email}, function(result, err){
+														var ticketNumber = $("#ticketNumber").val()
+														//alert(ticketNumber)
+														//$.post("https://192.168.16.108:5432/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: 1, email: email}, function(result, err){
+														$.post("https://haoyizu.herokuapp.com/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: 1, email: email}, function(result, err){
+
 															console.log(result)
 															console.log(err)
 															console.log("DONE!")
 													    }).error(function () {alert("付款失败，请联系客服人员")});
+														
 													}
 
+													function validateEmail(){
+														var email = $("#email").val()
+														var confirmedEmail = $("#confirmedEmail").val()
+														if (email != confirmedEmail){
+															alert("make sure the email addresses are same")
+														}
+													}
 													var ticketNumber = document.getElementById("ticketNumber")
 													var price = document.getElementById("price")
 
