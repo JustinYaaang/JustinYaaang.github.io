@@ -139,6 +139,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 													  	  document.getElementById('buyButton').disabled=true;
 													  	  
 														  stripe.createToken(card).then(function(result) {
+														  	document.getElementById('buyButton').disabled=false;
 														    if (result.error) {
 														      // Inform the user if there was an error
 														      var errorElement = document.getElementById('card-errors');
