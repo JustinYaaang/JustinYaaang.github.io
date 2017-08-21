@@ -59,9 +59,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<!--asdasdas-->
 											<form action="http://localhost:5432/ticket/purchase" method="post" id="payment-form">
 												  <div class="form-row">
-												    <label for="card-element">
-												      Credit or debit card
-												    </label>
+												    
 												    <div id="card-element">
 												      <!-- a Stripe Element will be inserted here. -->
 												    </div>
@@ -69,8 +67,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												    <!-- Used to display form errors -->
 												    <div id="card-errors" role="alert"></div>
 												  </div>
-
-												  <button>Submit Payment</button>
+												  <br/>
+												  <div class="tab-form-left user-form">
+														<h5>TICKET NUMBER</h5>
+															<ul>
+																<li>
+																	<input id="ticketNumber" type="number" class="text_box" type="text" value="1" min="1" />	
+																</li>
+															</ul>
+													</div>
+													<div class="tab-form-right user-form-rt">
+														<h5>PRICE(C$69 for each)</h5>
+														<input id="price" type="text" value="1X69+13%TAX=77.97">
+													</div>
+												  <button class="submitButton">PAY NOW</button>
 												</form>
 												<script type="text/javascript">
 													// Create a Stripe client
@@ -148,6 +158,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 															console.log("DONE!")
 													    }).error(function () {alert("付款失败，请联系客服人员")});
 													}
+
+													var ticketNumber = document.getElementById("ticketNumber")
+													var price = document.getElementById("price")
+
+													ticketNumber.addEventListener('change', function(event) {
+														console.log("ticketNumber changed")
+														price.value = '' + ticketNumber.value + "X69+13%TAX=" +(ticketNumber.value*69*1.13).toFixed(2)
+													});
 												</script>
 												<!--asdasdas-->
 											

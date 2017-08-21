@@ -896,3 +896,32 @@ transition:0.5s all;
 .StripeElement--webkit-autofill {
   background-color: #fefde5 !important;
 }
+
+.submitButton {
+    background: #DC143C;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 10px 0;
+    border: none;
+    font-size: 16px;
+    outline: none;
+    width: 22%;
+    cursor: pointer;
+    font-weight: 600;
+    margin-bottom:30px;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+    border-radius:10px;
+    box-shadow: 6px 6px 3px #888888;
+}
+.submitButton:hover{
+    background: #3AD5A0;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+}
