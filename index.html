@@ -48,39 +48,92 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<form>
 												<div class="tab-for">				
 													<h5>EMAIL ADDRESS</h5>
-														<input type="text" value="" size="35">
+														<input id="email" type="text" value="em">
 													<h5>CONFIRM EMAIL ADDRESS</h5>													
-														<input type="text" value="">
+														<input id="confirmedEmail" type="text" value="">
 												</div>			
 											</form>
 											<h3 class="pay-title">Credit Card Info</h3>
 											<form>
 												<div class="tab-for">				
 													<h5>NAME ON CARD</h5>
-														<input type="text" value="">
+														<input id="name" type="text" value="">
 													<h5>CARD NUMBER</h5>													
-														<input type="text" value="">
+														<input id="cardNumber" type="text" value="">
 												</div>	
 												<div class="transaction">
 													<div class="tab-form-left user-form">
 														<h5>EXPIRATION</h5>
 															<ul>
 																<li>
-																	<input type="number" class="text_box" type="text" value="6" min="1" />	
+																	<input id="expiredMonth" type="number" class="text_box" type="text" value="6" min="1" />	
 																</li>
 																<li>
-																	<input type="number" class="text_box" type="text" value="1988" min="1" />	
+																	<input id="expiredYear" type="number" class="text_box" type="text" value="1988" min="1" />	
 																</li>
-																
 															</ul>
 													</div>
 													<div class="tab-form-right user-form-rt">
 														<h5>CVV NUMBER</h5>													
-														<input type="text" value="">
+														<input id="cvv" type="text" value="">
+													</div>
+													<div class="clear"></div>
+
+													<div class="tab-form-left user-form">
+														<h5>TICKET NUMBER</h5>
+															<ul>
+																<li>
+																	<input id="ticketNumber" type="number" class="text_box" type="text" value="1" min="1" />	
+																</li>
+															</ul>
+													</div>
+													<div class="tab-form-right user-form-rt">
+														<h5>PRICE(C$69 for each)</h5>
+														<input id="price" type="text" value="">
 													</div>
 													<div class="clear"></div>
 												</div>
-												<input type="submit" value="SUBMIT">
+												<input type="submit" onclick="collectInfo()" value="PAY NOW">
+												<script type="text/javascript">
+													function test(){
+														var amount = 3
+														Stripe.createToken({
+													    number: 4520880029122841,
+													    cvc: 503,
+													    exp_month: 06,
+													    exp_year: 2019
+													    }, amount, stripeResponseHandler);
+													}
+													test()
+
+													function collectInfo() {
+														console.log("Hello")
+														
+
+														var email = document.getElementById("email").value
+														var confirmedEmail = document.getElementById("confirmedEmail").value
+														var name = document.getElementById("name").value
+														var cardNumber = document.getElementById("cardNumber").value
+														var expiredYear = document.getElementById("expiredYear").value
+														var expiredMonth = document.getElementById("expiredMonth").value
+														var cvv = document.getElementById("cvv").value
+														var isValid = validation(email, confirmedEmail, name, cardNumber, expiredYear, expiredMonth, cvv)
+														console.log(expiredYear)
+													}
+													//collectInfo()
+													// orange #FFCC66
+													function validation(email, confirmedEmail, name, cardNumber, expiredYear, expiredMonth, cvv){
+														if (email != confirmedEmail){
+															alert("Please confirm your email")
+															return false
+														}
+														if (!email || !confirmedEmail || !name || !cardNumber || !expiredYear || !expiredMonth || !cvv){
+															alert("Please fill in all the info")
+															return false
+														}
+														return true
+													}
+												</script>
 											</form>
 											
 										</div>
