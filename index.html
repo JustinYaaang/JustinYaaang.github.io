@@ -134,21 +134,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 													form.addEventListener('submit', function(event) {
 													  event.preventDefault();
 													  console.log("HEY5")
-													  validateEmail()
-													  stripe.createToken(card).then(function(result) {
-													    if (result.error) {
-													      // Inform the user if there was an error
-													      var errorElement = document.getElementById('card-errors');
-													      errorElement.textContent = result.error.message;
-													      console.log("token is failed to created")
-													      alert("购票失败，请稍后再试")
-													    } else {
-													      // Send the token to your server
-													      console.log("HEY6")
-													      console.log(result.token)
-													      stripeTokenHandler(result.token);
-													    }
-													  });
+													  var validation = validateEmail()
+													  if (validation == true){														
+														  stripe.createToken(card).then(function(result) {
+														    if (result.error) {
+														      // Inform the user if there was an error
+														      var errorElement = document.getElementById('card-errors');
+														      errorElement.textContent = result.error.message;
+														      console.log("token is failed to created")
+														      alert("购票失败，请稍后再试")
+														    } else {
+														      // Send the token to your server
+														      console.log("HEY6")
+														      console.log(result.token)
+														      stripeTokenHandler(result.token);
+														    }
+														  });	
+														  
+													  }
+													  
 													});
 													function stripeTokenHandler(token) {
 														console.log("im in!");
@@ -172,11 +176,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														var confirmedEmail = $("#confirmedEmail").val()
 														if (email == ''){
 															alert("Please fill in the email address first")
+															return false
 														}
 														if (email != confirmedEmail){
 															alert("make sure the email addresses are same")
+															return false
 														}
+														document.getElementById('email').value = ''
+														document.getElementById('confirmedEmail').value = ''
+														return true
 													}
+
 													var ticketNumber = document.getElementById("ticketNumber")
 													var price = document.getElementById("price")
 
