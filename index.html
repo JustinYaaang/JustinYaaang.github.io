@@ -77,8 +77,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 															</ul>
 													</div>
 													<div class="tab-form-right user-form-rt">
-														<h5>PRICE(C$69 for each)</h5>
-														<input id="price" type="text" value="1X69+13%TAX=77.97">
+														<h5>PRICE(C$69 for each)+TAX</h5>
+														<input id="price" type="text" value="77.97">
 													</div>
 												  <button style="margin-top: 20px" class="submitButton">PAY NOW</button>
 												</form>
@@ -181,7 +181,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 													ticketNumber.addEventListener('change', function(event) {
 														console.log("ticketNumber changed")
-														price.value = '' + ticketNumber.value + "X69+13%TAX=" +(ticketNumber.value*69*1.13).toFixed(2)
+														price.value = '' + (ticketNumber.value*69*1.13).toFixed(2)
 													});
 												</script>
 												<!--asdasdas-->
