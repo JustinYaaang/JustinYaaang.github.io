@@ -152,7 +152,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														console.log("im in!");
 														var email = $("#email").val()
 														console.log(email)
-														$.post("https://haoyizu.herokuapp.com/ticket/purchase", {token: token, id: "web", amount: 69 * 1.13, wechat: "web", ticketNumber: 1, email: email}, function(result, err){
+														$.post("https://haoyizu.herokuapp.com/ticket/purchase", {token: token.id, id: "web", amount: 69 * 1.13, wechat: "web", ticketNumber: 1, email: email}, function(result, err){
 															console.log(result)
 															console.log(err)
 															console.log("DONE!")
