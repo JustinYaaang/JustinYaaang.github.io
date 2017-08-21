@@ -10,6 +10,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <head>
 <title>Payment Form Widget Flat Responsive Widget Template :: w3layouts</title>
 <!-- for-mobile-apps -->
+<script src="https://js.stripe.com/v3/"></script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Payment Form Widget Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -54,87 +56,100 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												</div>			
 											</form>
 											<h3 class="pay-title">Credit Card Info</h3>
-											<form>
-												<div class="tab-for">				
-													<h5>NAME ON CARD</h5>
-														<input id="name" type="text" value="">
-													<h5>CARD NUMBER</h5>													
-														<input id="cardNumber" type="text" value="">
-												</div>	
-												<div class="transaction">
-													<div class="tab-form-left user-form">
-														<h5>EXPIRATION</h5>
-															<ul>
-																<li>
-																	<input id="expiredMonth" type="number" class="text_box" type="text" value="6" min="1" />	
-																</li>
-																<li>
-																	<input id="expiredYear" type="number" class="text_box" type="text" value="1988" min="1" />	
-																</li>
-															</ul>
-													</div>
-													<div class="tab-form-right user-form-rt">
-														<h5>CVV NUMBER</h5>													
-														<input id="cvv" type="text" value="">
-													</div>
-													<div class="clear"></div>
+											<!--asdasdas-->
+											<form action="http://localhost:5432/ticket/purchase" method="post" id="payment-form">
+												  <div class="form-row">
+												    <label for="card-element">
+												      Credit or debit card
+												    </label>
+												    <div id="card-element">
+												      <!-- a Stripe Element will be inserted here. -->
+												    </div>
 
-													<div class="tab-form-left user-form">
-														<h5>TICKET NUMBER</h5>
-															<ul>
-																<li>
-																	<input id="ticketNumber" type="number" class="text_box" type="text" value="1" min="1" />	
-																</li>
-															</ul>
-													</div>
-													<div class="tab-form-right user-form-rt">
-														<h5>PRICE(C$69 for each)</h5>
-														<input id="price" type="text" value="">
-													</div>
-													<div class="clear"></div>
-												</div>
-												<input type="submit" onclick="collectInfo()" value="PAY NOW">
+												    <!-- Used to display form errors -->
+												    <div id="card-errors" role="alert"></div>
+												  </div>
+
+												  <button>Submit Payment</button>
+												</form>
 												<script type="text/javascript">
-													function test(){
-														var amount = 3
-														Stripe.createToken({
-													    number: 4520880029122841,
-													    cvc: 503,
-													    exp_month: 06,
-													    exp_year: 2019
-													    }, amount, stripeResponseHandler);
-													}
-													test()
+													// Create a Stripe client
+													var stripe = Stripe('pk_live_GYG3dqnZhlXTtu97cr2Bo3rK');
 
-													function collectInfo() {
-														console.log("Hello")
-														
+													console.log("HEY")
 
-														var email = document.getElementById("email").value
-														var confirmedEmail = document.getElementById("confirmedEmail").value
-														var name = document.getElementById("name").value
-														var cardNumber = document.getElementById("cardNumber").value
-														var expiredYear = document.getElementById("expiredYear").value
-														var expiredMonth = document.getElementById("expiredMonth").value
-														var cvv = document.getElementById("cvv").value
-														var isValid = validation(email, confirmedEmail, name, cardNumber, expiredYear, expiredMonth, cvv)
-														console.log(expiredYear)
-													}
-													//collectInfo()
-													// orange #FFCC66
-													function validation(email, confirmedEmail, name, cardNumber, expiredYear, expiredMonth, cvv){
-														if (email != confirmedEmail){
-															alert("Please confirm your email")
-															return false
-														}
-														if (!email || !confirmedEmail || !name || !cardNumber || !expiredYear || !expiredMonth || !cvv){
-															alert("Please fill in all the info")
-															return false
-														}
-														return true
+													// Create an instance of Elements
+													var elements = stripe.elements();
+
+													// Custom styling can be passed to options when creating an Element.
+													console.log("HEY2")
+													// (Note that this demo uses a wider set of styles than the guide below.)
+													var style = {
+													  base: {
+													    color: '#32325d',
+													    lineHeight: '24px',
+													    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+													    fontSmoothing: 'antialiased',
+													    fontSize: '16px',
+													    '::placeholder': {
+													      color: '#aab7c4'
+													    }
+													  },
+													  invalid: {
+													    color: '#fa755a',
+													    iconColor: '#fa755a'
+													  }
+													};
+
+													// Create an instance of the card Element
+													var card = elements.create('card', {style: style});
+
+													// Add an instance of the card Element into the `card-element` <div>
+													card.mount('#card-element');
+
+													// Handle real-time validation errors from the card Element.
+													console.log("HEY3")
+													card.addEventListener('change', function(event) {
+														console.log("HEY4")
+													  var displayError = document.getElementById('card-errors');
+													  if (event.error) {
+													    displayError.textContent = event.error.message;
+													  } else {
+													    displayError.textContent = '';
+													  }
+													});
+
+													// Handle form submission
+													var form = document.getElementById('payment-form');
+													form.addEventListener('submit', function(event) {
+													  event.preventDefault();
+													  console.log("HEY5")
+
+													  stripe.createToken(card).then(function(result) {
+													    if (result.error) {
+													      // Inform the user if there was an error
+													      var errorElement = document.getElementById('card-errors');
+													      errorElement.textContent = result.error.message;
+													    } else {
+													      // Send the token to your server
+													      console.log("HEY6")
+													      console.log(result.token)
+													      stripeTokenHandler(result.token);
+													    }
+													  });
+													});
+													function stripeTokenHandler(token) {
+														console.log("im in!");
+														var email = $("#email").val()
+														console.log(email)
+														$.post("https://haoyizu.herokuapp.com/ticket/purchase", {token: token, id: "web", amount: 69 * 1.13, wechat: "web", ticketNumber: 1, email: email}, function(result, err){
+															console.log(result)
+															console.log(err)
+															console.log("DONE!")
+													    }).error(function () {alert("付款失败，请联系客服人员")});
 													}
 												</script>
-											</form>
+												<!--asdasdas-->
 											
 										</div>
 									</div>
