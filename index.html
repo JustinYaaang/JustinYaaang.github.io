@@ -80,7 +80,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														<h5>PRICE(C$69 for each)+TAX</h5>
 														<input id="price" type="text" value="77.97">
 													</div>
-												  <button style="margin-top: 20px" class="submitButton">PAY NOW</button>
+												  <button style="margin-top: 20px" class="submitButton" id="buyButton">PAY NOW</button>
 												</form>
 												<script type="text/javascript">
 													// Create a Stripe client
@@ -135,7 +135,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 													  event.preventDefault();
 													  console.log("HEY5")
 													  var validation = validateEmail()
-													  if (validation == true){														
+													  if (validation == true){													
+													  	  document.getElementById('buyButton').disabled=true;
+													  	  
 														  stripe.createToken(card).then(function(result) {
 														    if (result.error) {
 														      // Inform the user if there was an error
@@ -149,7 +151,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														      console.log(result.token)
 														      stripeTokenHandler(result.token);
 														    }
-														  });	
+														  });
+														  	
 														  
 													  }
 													  
@@ -182,8 +185,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 															alert("make sure the email addresses are same")
 															return false
 														}
-														document.getElementById('email').value = ''
-														document.getElementById('confirmedEmail').value = ''
 														return true
 													}
 
