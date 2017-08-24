@@ -139,7 +139,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 													  	  document.getElementById('buyButton').disabled=true;
 													  	  
 														  stripe.createToken(card).then(function(result) {
-														  	document.getElementById('buyButton').disabled=false;
+														  	
 														    if (result.error) {
 														      // Inform the user if there was an error
 														      var errorElement = document.getElementById('card-errors');
@@ -170,6 +170,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 															console.log(result)
 															console.log(err)
 															console.log("DONE!")
+															document.getElementById('buyButton').disabled=false;
 															alert("付款成功，请等待电子票发送至您的邮箱")
 													    }).error(function () {alert("付款失败，请联系客服人员")});
 														
