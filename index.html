@@ -57,7 +57,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											</form>
 											<h3 class="pay-title">Credit Card Info</h3>
 											<!--asdasdas-->
-											<form action="http://localhost:5432/ticket/purchase" method="post" id="payment-form">
+											<form method="post" id="payment-form">
 												  <div class="form-row">
 												    
 														<div class="l-wrapper" id="loading" style="display:none;">
@@ -104,6 +104,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 													<div class="tab-form-right user-form-rt">
 														<h5>PRICE(C$69 for each)+TAX</h5>
 														<input id="price" type="text" value="77.97" disabled="disabled">
+													</div>
+
+													<div class="tab-form-left user-form">
+														<h5>PROMOTIONAL CODE</h5>
+														<input id="code" type="text" value="" placeholder="enter code to get discount">
+													</div>
+													<div class="tab-form-right user-form-rt">
+														<button style="margin-top: 20px" class="submitButton" id="verifyButton">verify the code</button>
 													</div>
 												  <button style="margin-top: 20px" class="submitButton" id="buyButton">PAY NOW</button>
 												</form>
@@ -156,8 +164,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 													// Handle form submission
 													var form = document.getElementById('payment-form');
-													form.addEventListener('submit', function(event) {
-													  event.preventDefault();
+												
+													document.getElementById('buyButton').onclick = buyButtonClicked
+													document.getElementById('verifyButton').onclick = verifyCodeClicked
+
+													function buyButtonClicked (){
 													  console.log("HEY5")
 													  document.getElementById('buyButton').disabled=true;
 													  document.getElementById('loading').style.display = 'block'
@@ -188,7 +199,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 													  	document.getElementById('buyButton').disabled=false;
 													  }
 													  
-													});
+													}
 													function stripeTokenHandler(token) {
 														console.log("im in!");
 														var email = $("#email").val()
@@ -232,6 +243,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														console.log("ticketNumber changed")
 														price.value = '' + (ticketNumber.value*69*1.13).toFixed(2)
 													});
+
+													function verifyCodeClicked(){
+														alert("verifyClicked")
+
+														$.post("http://192.168.16.108:5432/code/verify", {code:"aaa"}, function(result, err){
+															alert("verifyClicked 22")
+
+															if (err){
+																alert("failed")
+															}
+															else{
+																alert("good so far~")
+															}
+													    })
+													}
 												</script>
 												<!--asdasdas-->
 											
