@@ -24,6 +24,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href='//fonts.googleapis.com/css?family=Alegreya+Sans:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,800,800italic,900,900italic' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="js/jquery.min.js"></script>
+<script>
+	var PUBLIC_CODE = ''
+	var IS_CODE_VALID = false
+	var PRICE = 69
+</script>
 </head>
 <body>
 	<div class="main">
@@ -111,9 +116,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														<input id="code" type="text" value="" placeholder="enter code to get discount">
 													</div>
 													<div class="tab-form-right user-form-rt">
-														<button style="margin-top: 20px" class="submitButton" id="verifyButton">verify the code</button>
+														<button type="button" style="margin-top: 20px" class="submitButton" id="verifyButton">verify the code</button>
 													</div>
-												  <button style="margin-top: 20px" class="submitButton" id="buyButton">PAY NOW</button>
+												  <button type="button" style="margin-top: 20px" class="submitButton" id="buyButton">PAY NOW</button>
 												</form>
 												<script type="text/javascript">
 													// Create a Stripe client
@@ -185,7 +190,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														      alert("购票失败，请稍后再试")
 														    } else {
 														      // Send the token to your server
-														      document.getElementById('buyButton').disabled=true;
 														      console.log("HEY6")
 														      console.log(result.token)
 														      stripeTokenHandler(result.token);
@@ -206,10 +210,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														console.log(email)
 														var ticketNumber = $("#ticketNumber").val()
 														//alert(ticketNumber)
-														//$.post("http://192.168.16.108:5432/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: 1, email: email}, function(result, err){
 
-														
-														$.post("https://haoyizu.herokuapp.com/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: ticketNumber, email: email}, function(result, err){
+														$.post("http://192.168.16.108:5432/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: ticketNumber, email: email/*, isCodeValid: IS_CODE_VALID, code: PUBLIC_CODE*/}, function(result, err){
+														//$.post("https://haoyizu.herokuapp.com/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: ticketNumber, email: email, isCodeValid: IS_CODE_VALID, code: PUBLIC_CODE}, function(result, err){
 
 															console.log(result)
 															console.log(err)
@@ -218,7 +221,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 															document.getElementById('buyButton').disabled=false;
 															document.getElementById('loading').style.display = 'none'
 
-													    }).error(function () {alert("付款失败，请联系客服人员")});
+													    }).error(function () {
+													    	document.getElementById('buyButton').disabled=false;
+													    	document.getElementById('loading').style.display = 'none'
+													    	alert("付款失败，请联系客服人员")
+
+													    });
 														
 													}
 
@@ -241,22 +249,45 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 													ticketNumber.addEventListener('change', function(event) {
 														console.log("ticketNumber changed")
-														price.value = '' + (ticketNumber.value*69*1.13).toFixed(2)
+														price.value = '' + (ticketNumber.value*PRICE*1.13).toFixed(2)
 													});
 
 													function verifyCodeClicked(){
-														alert("verifyClicked")
+														console.log('aaa')
+														var code = document.getElementById('code').value
+														console.log(code)
+														/*
+														$.post("https://haoyizu.herokuapp.com/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: ticketNumber, email: email}, function(result, err){
 
-														$.post("http://192.168.16.108:5432/code/verify", {code:"aaa"}, function(result, err){
-															alert("verifyClicked 22")
+															console.log(result)
+															console.log(err)
+															console.log("DONE!")
+															alert("付款成功，请等待电子票发送至您的邮箱")
+															document.getElementById('buyButton').disabled=false;
+															document.getElementById('loading').style.display = 'none'
 
-															if (err){
-																alert("failed")
+													    }).error(function () {alert("付款失败，请联系客服人员")});
+														*/
+														
+														$.post("http://192.168.16.108:5432/code/verify", {code: code}, function(result, err){
+															console.log(result.isVerified)
+															console.log(result.isValid)
+															if(result.isVerified){
+																if (result.isValid){
+																	alert("此CODE已验证成功，票价为C$79")
+																	PUBLIC_CODE = code
+																	IS_CODE_VALID = true
+																	PRICE = 79
+																	var ticketNumber = document.getElementById("ticketNumber")
+																	var price = document.getElementById("price")
+																	price.value = '' + (ticketNumber.value*PRICE*1.13).toFixed(2)
+																}
+																else{
+																	alert("此CODE无效")
+																}
 															}
-															else{
-																alert("good so far~")
-															}
-													    })
+															
+													    }).error(function () {alert("验证失败")});
 													}
 												</script>
 												<!--asdasdas-->
