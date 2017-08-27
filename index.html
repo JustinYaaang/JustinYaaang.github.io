@@ -98,7 +98,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												    <div id="card-errors" role="alert"></div>
 												  </div>
 												  <br/>
-												  <div class="tab-form-left user-form">
+												  <div class="tab-form-right user-form">
 														<h5>TICKET NUMBER</h5>
 															<ul>
 																<li>
@@ -107,18 +107,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 															</ul>
 													</div>
 													<div class="tab-form-right user-form-rt">
-														<h5>PRICE(C$69 for each)+TAX</h5>
-														<input id="price" type="text" value="77.97" disabled="disabled">
-													</div>
-
-													<div class="tab-form-left user-form">
-														<h5>PROMOTIONAL CODE</h5>
+														<h5>PRICE</h5>
+														<input id="price" type="text" value="77.97(C$69 for each + TAX)" disabled="disabled">
+														<h5>*PROMOTIONAL CODE</h5>
 														<input id="code" type="text" value="" placeholder="enter code to get discount">
 													</div>
-													<div class="tab-form-right user-form-rt">
-														<button type="button" style="margin-top: 20px" class="submitButton" id="verifyButton">verify the code</button>
-													</div>
-												  <button type="button" style="margin-top: 20px" class="submitButton" id="buyButton">PAY NOW</button>
+													<button type="button" class="submitButton" id="verifyButton">Verify Code</button>
+												  	<button  style="float:right" type="button" class="submitButton" id="buyButton">PAY NOW</button>
 												</form>
 												<script type="text/javascript">
 													// Create a Stripe client
@@ -211,7 +206,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														var ticketNumber = $("#ticketNumber").val()
 														//alert(ticketNumber)
 
-														$.post("http://192.168.16.108:5432/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: ticketNumber, email: email, isCodeValid: IS_CODE_VALID, code: PUBLIC_CODE}, function(result, err){
+														$.post("https://haoyizu.herokuapp.com/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: ticketNumber, email: email, isCodeValid: IS_CODE_VALID, code: PUBLIC_CODE}, function(result, err){
 														//$.post("https://haoyizu.herokuapp.com/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: ticketNumber, email: email, isCodeValid: IS_CODE_VALID, code: PUBLIC_CODE}, function(result, err){
 
 															console.log(result)
@@ -249,7 +244,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 													ticketNumber.addEventListener('change', function(event) {
 														console.log("ticketNumber changed")
-														price.value = '' + (ticketNumber.value*PRICE*1.13).toFixed(2)
+														price.value = '' + (ticketNumber.value*PRICE*1.13).toFixed(2) + '(C$' + PRICE + ' for each + TAX)'
 													});
 
 													function verifyCodeClicked(){
@@ -269,7 +264,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 													    }).error(function () {alert("付款失败，请联系客服人员")});
 														*/
 														
-														$.post("http://192.168.16.108:5432/code/verify", {code: code}, function(result, err){
+														$.post("https://haoyizu.herokuapp.com/code/verify", {code: code}, function(result, err){
 															console.log(result.isVerified)
 															console.log(result.isValid)
 															if(result.isVerified){
@@ -280,7 +275,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 																	PRICE = 79
 																	var ticketNumber = document.getElementById("ticketNumber")
 																	var price = document.getElementById("price")
-																	price.value = '' + (ticketNumber.value*PRICE*1.13).toFixed(2)
+																	price.value = '' + (ticketNumber.value*PRICE*1.13).toFixed(2) + '(C$' + PRICE + ' for each + TAX)'
 																}
 																else{
 																	alert("此CODE无效")
