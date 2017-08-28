@@ -215,6 +215,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 															console.log(result)
 															console.log(err)
 															console.log("DONE!")
+															if (code != ''){
+																var price = document.getElementById("price")					
+																PRICE = 79
+																price.value = '' + (ticketNumber*PRICE*1.13).toFixed(2) + '(C$' + PRICE + ' for each + TAX)'
+															}
+
 															alert("付款成功，请等待电子票发送至您的邮箱")
 															document.getElementById('buyButton').disabled=false;
 															document.getElementById('loading').style.display = 'none'
