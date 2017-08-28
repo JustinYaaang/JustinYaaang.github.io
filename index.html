@@ -208,10 +208,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														console.log(email)
 														var ticketNumber = $("#ticketNumber").val()
 														//alert(ticketNumber)
+														var code = document.getElementById('code').value
 
-														$.post("http://localhost:5432/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: ticketNumber, email: email, isCodeValid: IS_CODE_VALID, code: PUBLIC_CODE}, function(result, err){
+														$.post("http://localhost:5432/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: ticketNumber, email: email, isCodeValid: IS_CODE_VALID, code: code}, function(result, err){
 														//$.post("https://haoyizu.herokuapp.com/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: ticketNumber, email: email, isCodeValid: IS_CODE_VALID, code: PUBLIC_CODE}, function(result, err){
-
 															console.log(result)
 															console.log(err)
 															console.log("DONE!")
