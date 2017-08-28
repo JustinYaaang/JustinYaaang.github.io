@@ -210,8 +210,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														//alert(ticketNumber)
 														var code = document.getElementById('code').value
 
-														$.post("http://localhost:5432/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: ticketNumber, email: email, isCodeValid: IS_CODE_VALID, code: code}, function(result, err){
-														//$.post("https://haoyizu.herokuapp.com/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: ticketNumber, email: email, isCodeValid: IS_CODE_VALID, code: PUBLIC_CODE}, function(result, err){
+														$.post("https://haoyizu.herokuapp.com/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: ticketNumber, email: email, isCodeValid: IS_CODE_VALID, code: code}, function(result, err){
+														//$.post("http://localhost:5432/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: ticketNumber, email: email, isCodeValid: IS_CODE_VALID, code: code}, function(result, err){
+
 															console.log(result)
 															console.log(err)
 															console.log("DONE!")
@@ -272,8 +273,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 													    }).error(function () {alert("付款失败，请联系客服人员")});
 														*/
-														
-														$.post("http://localhost:5432/code/verify", {code: code}, function(result, err){
+														//$.post("http://localhost:5432/code/verify", {code: code}, function(result, err){
+
+														$.post("https://haoyizu.herokuapp.com/code/verify", {code: code}, function(result, err){
 															console.log(result.isVerified)
 															console.log(result.isValid)
 															if(result.isVerified){
