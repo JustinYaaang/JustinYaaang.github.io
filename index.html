@@ -115,8 +115,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														<h5><br/>*PROMOTIONAL CODE</h5>
 														<input id="code" type="text" value="" placeholder="enter code to get discount">														
 													</div>													
-													<button type="button" class="submitButton" id="verifyButton">VERIFY CODE</button>
-												  	<button  style="float:right" type="button" class="submitButton" id="buyButton">PAY NOW</button>
+													<button style="margin-top: 16px" type="button" class="submitButton" id="verifyButton">VERIFY CODE</button>
+												  	<button  style="float:right;margin-top: 16px" type="button" class="submitButton" id="buyButton">PAY NOW</button>
 												</form>
 												<script type="text/javascript">
 													// Create a Stripe client
@@ -209,7 +209,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														var ticketNumber = $("#ticketNumber").val()
 														//alert(ticketNumber)
 
-														$.post("https://haoyizu.herokuapp.com/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: ticketNumber, email: email, isCodeValid: IS_CODE_VALID, code: PUBLIC_CODE}, function(result, err){
+														$.post("http://localhost:5432/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: ticketNumber, email: email, isCodeValid: IS_CODE_VALID, code: PUBLIC_CODE}, function(result, err){
 														//$.post("https://haoyizu.herokuapp.com/ticket/purchase", {token: token.id, id: "web", amount: ticketNumber, wechat: "web", ticketNumber: ticketNumber, email: email, isCodeValid: IS_CODE_VALID, code: PUBLIC_CODE}, function(result, err){
 
 															console.log(result)
@@ -267,7 +267,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 													    }).error(function () {alert("付款失败，请联系客服人员")});
 														*/
 														
-														$.post("https://haoyizu.herokuapp.com/code/verify", {code: code}, function(result, err){
+														$.post("http://localhost:5432/code/verify", {code: code}, function(result, err){
 															console.log(result.isVerified)
 															console.log(result.isValid)
 															if(result.isVerified){
