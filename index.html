@@ -258,6 +258,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 													});
 
 													function verifyCodeClicked(){
+														document.getElementById('loading').style.display = 'block'
 														console.log('aaa')
 														var code = document.getElementById('code').value
 														console.log(code)
@@ -278,6 +279,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														$.post("https://haoyizu.herokuapp.com/code/verify", {code: code}, function(result, err){
 															console.log(result.isVerified)
 															console.log(result.isValid)
+															document.getElementById('loading').style.display = 'none'
 															if(result.isVerified){
 																if (result.isValid){
 																	alert("此CODE已验证成功，票价为C$79")
@@ -293,7 +295,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 																}
 															}
 															
-													    }).error(function () {alert("验证失败")});
+													    }).error(function () {
+													    	document.getElementById('loading').style.display = 'none'
+													    	alert("验证失败")
+													    });
 													}
 												</script>
 												<!--asdasdas-->
