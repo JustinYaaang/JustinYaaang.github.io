@@ -219,10 +219,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 															document.getElementById('buyButton').disabled=false;
 															document.getElementById('loading').style.display = 'none'
 
-													    }).error(function () {
+													    }).error(function (err) {
 													    	document.getElementById('buyButton').disabled=false;
 													    	document.getElementById('loading').style.display = 'none'
-													    	alert("付款失败，请联系客服人员")
+													    	alert("付款失败，如果有问题请联系客服人员，原因：" + err.responseText)
 
 													    });
 														
